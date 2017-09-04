@@ -36,6 +36,7 @@ class LoaderTest extends TestCase
      * @var array
      */
     protected $configKeys = [
+        'broadcast_connection' => 'broadcasting.connections.redis-sentinel',
         'cache_store' => 'cache.stores.redis-sentinel',
         'sentinel_connections' => 'database.redis-sentinel',
         'redis_driver' => 'database.redis.driver',
@@ -116,6 +117,21 @@ class LoaderTest extends TestCase
         'REDIS_SENTINEL_DISCOVERY' => [
             'database.redis-sentinel.options.update_sentinels',
         ],
+        'REDIS_BROADCAST_HOST' => [
+            'database.redis-sentinel.broadcasting.0.host',
+        ],
+        'REDIS_BROADCAST_PORT' => [
+            'database.redis-sentinel.broadcasting.0.port',
+        ],
+        'REDIS_BROADCAST_SERVICE' => [
+            'database.redis-sentinel.broadcasting.options.service',
+        ],
+        'REDIS_BROADCAST_PASSWORD' => [
+            'database.redis-sentinel.broadcasting.options.parameters.password',
+        ],
+        'REDIS_BROADCAST_DATABASE' => [
+            'database.redis-sentinel.broadcasting.options.parameters.database',
+        ],
         'REDIS_CACHE_HOST' => [
             'database.redis-sentinel.cache.0.host',
         ],
@@ -163,6 +179,12 @@ class LoaderTest extends TestCase
         ],
         'REDIS_DRIVER' => [
             'database.redis.driver',
+        ],
+        'BROADCAST_REDIS_CONNECTION' => [
+            'broadcasting.connections.redis-sentinel.connection'
+        ],
+        'BROADCAST_REDIS_SENTINEL_CONNECTION' => [
+            'broadcasting.connections.redis-sentinel.connection'
         ],
         'CACHE_REDIS_CONNECTION' => [
             'cache.stores.redis-sentinel.connection'
@@ -247,6 +269,7 @@ class LoaderTest extends TestCase
             $this->loader->loadConfiguration();
 
             $this->assertTrue($this->config->has('database'));
+            $this->assertTrue($this->config->has('broadcasting'));
             $this->assertTrue($this->config->has('cache'));
             $this->assertTrue($this->config->has('queue'));
         }

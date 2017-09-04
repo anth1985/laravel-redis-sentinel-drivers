@@ -2,6 +2,7 @@
 
 namespace Monospice\LaravelRedisSentinel\Configuration;
 
+use Illuminate\Broadcasting\BroadcastManager;
 use Illuminate\Foundation\Application as LaravelApplication;
 use Illuminate\Support\Arr;
 use Laravel\Lumen\Application as LumenApplication;
@@ -209,6 +210,7 @@ class Loader
      */
     protected function configureLumenComponents()
     {
+        $this->app->configure('broadcasting');
         $this->app->configure('database');
         $this->app->configure('cache');
         $this->app->configure('queue');
@@ -224,6 +226,7 @@ class Loader
     {
         $this->setConfigurationFor('database.redis-sentinel');
         $this->setConfigurationFor('database.redis.driver');
+        $this->setConfigurationFor('broadcasting.connections.redis-sentinel');
         $this->setConfigurationFor('cache.stores.redis-sentinel');
         $this->setConfigurationFor('queue.connections.redis-sentinel');
         $this->setSessionConfiguration();

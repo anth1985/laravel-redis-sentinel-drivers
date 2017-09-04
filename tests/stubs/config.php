@@ -50,6 +50,15 @@ return [
         ],
     ],
 
+    'broadcasting' => [
+        'connections' => [
+            'redis-sentinel' => [
+                'driver' => 'redis-sentinel',
+                'connection' => 'connection1',
+            ],
+        ],
+    ],
+
     // Represents a subset of config/cache.php
     'cache' => [
         'stores' => [
